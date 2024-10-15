@@ -61,19 +61,3 @@ fn main() {
    - The variable `mutable_age` is declared with the `mut` keyword, allowing its value to be changed later in the program.
    - After changing its value from 10 to 30, the updated value is printed.
 
-3. **Scalar Data Types**:
-   - Several scalar data types are demonstrated:
-     - `id` as an `i64` (long integer)
-     - `pi` as a `f32` (floating-point number)
-     - `is_shown` as a `bool` (boolean)
-     - `first` as a `char` (character)
-   - These values are printed at the end to showcase their usage.
-
-### Example Output
-When you run this program using `cargo run`, the output will be:
-```
-Age = 10
-After changing, mutable_age = 30
-ID = 73, PI = 3.14, is_shown = true, first = a
-```
-
