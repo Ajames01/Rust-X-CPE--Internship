@@ -49,7 +49,7 @@ if passed_exam {
 Characters represent single letters or emojis. In Rust, they are defined using the `char` type.
 
 ```rust
-let grade: char = 'a';
+let grade: char = 'A';
 println!("Your Internship grade is {}", grade);
 ```
 
