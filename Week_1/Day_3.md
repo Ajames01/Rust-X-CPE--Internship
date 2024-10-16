@@ -1,9 +1,5 @@
-# Rust Data Types Overview
-
-Welcome to the Rust Data Types repository! This project provides an overview of various data types in Rust, including scalar, compound, and user-defined types. Below, you'll find examples and explanations of each data type used in the `main` function.
 
 ## Table of Contents
-- [Introduction](#introduction)
 - [Data Types](#data-types)
   - [Integers](#integers)
   - [Floating Point Numbers](#floating-point-numbers)
@@ -13,8 +9,8 @@ Welcome to the Rust Data Types repository! This project provides an overview of 
   - [Arrays](#arrays)
   - [Vectors](#vectors)
 
-## Introduction
-Rust is a systems programming language that emphasizes safety and performance. Understanding its data types is crucial for effective programming. This repository demonstrates how to declare and use various data types in Rust.
+
+Rust is a systems programming language that emphasizes safety and performance. Understanding its data types is crucial for effective programming.
 
 ## Data Types
 
