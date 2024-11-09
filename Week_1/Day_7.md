@@ -108,8 +108,131 @@ fn main() {
     println!("{}", s2);
 }
 ```
+## Error Handling in Rust
 
-## Conclusion
+Error handling is a critical aspect of Rust programming, emphasizing safety and reliability. Rust uses a combination of `Result` and `Option` types to manage errors effectively without relying on exceptions. This approach allows developers to handle errors explicitly, making the code more robust and maintainable.
 
-Understanding ownership and borrowing in Rust is crucial for writing safe and efficient code. This README provides a foundational overview of these concepts with code examples. Feel free to explore further and experiment with your own Rust programs!
+### Key Concepts
 
+1. **Result Type**:
+   - The `Result` type is an enum that can be either `Ok(T)` for successful outcomes or `Err(E)` for errors. This allows functions to return error information alongside successful results.
+   - Example:
+     ```rust
+     fn divide(a: f64, b: f64) -> Result<f64, String> {
+         if b == 0.0 {
+             Err("Cannot divide by zero".to_string())
+         } else {
+             Ok(a / b)
+         }
+     }
+     ```
+
+2. **Option Type**:
+   - The `Option` type indicates the presence (`Some(T)`) or absence (`None`) of a value, useful for scenarios where a value may not exist.
+   - Example:
+     ```rust
+     fn find_item(id: i32) -> Option<Item> {
+         // Search logic here
+     }
+     ```
+
+3. **Error Propagation**:
+   - Rust provides the `?` operator to propagate errors easily. If a function returns a `Result`, using `?` will return the error immediately if it occurs.
+   - Example:
+     ```rust
+     fn process() -> Result<(), String> {
+         let value = divide(10.0, 0.0)?;
+         println!("Result: {}", value);
+         Ok(())
+     }
+     ```
+
+4. **Custom Error Types**:
+   - Developers can create custom error types using enums to categorize different error scenarios, improving clarity and handling.
+   - Example:
+     ```rust
+     #[derive(Debug)]
+     enum MyError {
+         Io(std::io::Error),
+         Parse(std::num::ParseIntError),
+         Other(String),
+     }
+     ```
+
+### Implementing Error Handling in a Calculator
+
+To illustrate error handling in Rust, we can modify a simple calculator program to include robust error management.
+
+Here’s an enhanced version of a basic calculator that handles user input errors effectively:
+
+```rust
+use std::io;
+
+fn main() {
+    let mut input = String::new();
+
+    println!("Enter the first number: ");
+    io::stdin().read_line(&mut input).expect("Failed to read line");
+    let x: f64 = match input.trim().parse() {
+        Ok(num) => num,
+        Err(_) => {
+            println!("Invalid input! Please enter a valid number.");
+            return;
+        },
+    };
+
+    input.clear();
+    println!("Enter the second number: ");
+    io::stdin().read_line(&mut input).expect("Failed to read line");
+    let y: f64 = match input.trim().parse() {
+        Ok(num) => num,
+        Err(_) => {
+            println!("Invalid input! Please enter a valid number.");
+            return;
+        },
+    };
+
+    println!("Select operation:");
+    println!("(1) Add");
+    println!("(2) Subtract");
+    println!("(3) Multiply");
+    println!("(4) Divide");
+
+    input.clear();
+    io::stdin().read_line(&mut input).expect("Failed to read line");
+    let operation: i32 = match input.trim().parse() {
+        Ok(num) => num,
+        Err(_) => {
+            println!("Invalid operation selection! Please enter a number between 1 and 4.");
+            return;
+        },
+    };
+
+    let result = match operation {
+        1 => x + y,
+        2 => x - y,
+        3 => x * y,
+        4 => {
+            if y == 0.0 {
+                println!("Error: Division by zero is not allowed.");
+                return;
+            }
+            x / y
+        },
+        _ => {
+            println!("Invalid operation! Please select a valid option.");
+            return;
+        },
+    };
+
+    println!("The result is: {}", result);
+}
+```
+
+### Explanation of the Code
+
+- **Input Handling**: The program reads user inputs for two numbers and an operation type, using `match` statements to handle potential parsing errors.
+- **Operation Selection**: It checks for valid operations and handles division by zero specifically, returning appropriate error messages.
+- **User Feedback**: Clear messages are provided for invalid inputs, ensuring users understand what went wrong.
+
+This structured approach to error handling not only improves user experience but also enhances code reliability by preventing unexpected crashes due to invalid inputs.
