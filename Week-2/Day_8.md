@@ -132,7 +132,7 @@ Here, Message has four variants:
 1. **Quit**: A simple variant with no associated data.
 2. **Move { x: i32, y: i32 }**: A variant with two named fields (x and y), representing coordinates.
 3. **Write(String)**: A variant with a single associated String value, representing a text message.
-4. **ChangeColor(i32, i32, i32)**: A variant with three i32 values, which can be used to represent RGB color values.
+4. **ChangeColor(u8 u8, u8)**: A variant with three u8 values, which can be used to represent RGB color values.
 
 ### Example with Pattern Matching
 
@@ -163,4 +163,4 @@ Since msg is set to `Message::Write(String::from("A.James"));`, Rust goes throug
 
 Matches this pattern and extracts the sting of text.
 
-Prints My name is AJames, I am a Rustacean
+Prints: My name is AJames, I am a Rustacean
