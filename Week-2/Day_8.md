@@ -1,4 +1,4 @@
-# Overview of Structs in Rust
+# Overview of Structs & Enums in Rust
 
 Structs in Rust are user-defined data types that allow you to group related data together. They are essential for creating complex data structures and come in three primary forms: **structs with named fields**, **tuple structs**, and **unit structs**.
 
@@ -124,7 +124,7 @@ Example:
               Quit,
               Move { x: i32, y: i32 },
               Write(String),
-              ChangeColor(i32, i32, i32),
+              ChangeColor(u8, u8, u8),
           }
 
 Here, Message has four variants:
@@ -139,13 +139,13 @@ Here, Message has four variants:
 You can use match to access the data inside enum variants:
 
           fn main() {
-              let msg = Message::Move { x: 10, y: 20 };
+              let msg = Message::Write(String::from("AJames));
           
               match msg {
                   Message::Quit => println!("Quit message"),
                   Message::Move { x, y } => println!("Move to coordinates ({}, {})", x, y),
-                  Message::Write(text) => println!("Text message: {}", text),
-                  Message::ChangeColor(r, g, b) => println!("Change color to RGB({}, {}, {})", r, g, b),
+                  Message::Write(text) => println!("My name is {}, I ama Rustacean", text),
+                  Message::ChangeColor(R, G, B) => println!("Change color to RGB({}, {}, {})", R, G, B),
               }
           }
 
@@ -156,11 +156,11 @@ Each arm of the match expression handles one of the four Message variants:
 1. **Message::Quit**: Prints "Quit message".
 2. **Message::Move { x, y }**: Destructures the Move variant to access its x and y values and prints them.
 3. **Message::Write(text)**: Extracts the text value from Write and prints it.
-4. **Message::ChangeColor(r, g, b)**: Destructures ChangeColor to access the r, g, and b values and prints them in an RGB format.
+4. **Message::ChangeColor(R, G, B)**: Destructures ChangeColor to access the R, G, and B values and prints them in an RGB format.
 
 ### What the Code Does
-Since msg is set to `Message::Move { x: 10, y: 20 }`, Rust goes through the match arms and finds the `Message::Move { x, y }` pattern. It then:
+Since msg is set to `Message::Write(String::from("A.James"));`, Rust goes through the match arms and finds the `Message::Write(text)` pattern. It then:
 
-Matches this pattern and extracts the values of x and y.
+Matches this pattern and extracts the sting of text.
 
-Prints Move to coordinates (10, 20).
+Prints My name is AJames, I am a Rustacean
