@@ -1,0 +1,65 @@
+// Define an enum for different item types
+enum ItemType {
+    Potion,
+    Sword,
+    Shield,
+    Food,
+}
+
+// Define a struct for an item
+struct Item {
+    name: String,
+    item_type: ItemType,
+    quantity: u32,
+}
+
+// Define a struct for the inventory
+struct Inventory {
+    items: Vec<Item>,
+}
+
+impl Inventory {
+    // Add a new item to the inventory
+    fn add_item(&mut self, item: Item) {
+        self.items.push(item);
+    }
+
+    // Remove an item from the inventory by name
+    fn remove_item(&mut self, item_name: &str) {
+        self.items.retain(|item| item.name != item_name);
+    }
+
+    // List all items in the inventory
+    fn list_items(&self) {
+        for item in &self.items {
+            println!("{}: {:?}", item.name, item.item_type);
+        }
+    }
+}
+
+fn main() {
+    // Create an inventory
+    let mut inventory = Inventory { items: Vec::new() };
+
+    // Add some items to the inventory
+    inventory.add_item(Item {
+        name: String::from("Health Potion"),
+        item_type: ItemType::Potion,
+        quantity: 5,
+    });
+
+    inventory.add_item(Item {
+        name: String::from("Iron Sword"),
+        item_type: ItemType::Sword,
+        quantity: 1,
+    });
+
+    // List the items in the inventory
+    inventory.list_items();
+
+    // Remove an item from the inventory
+    inventory.remove_item("Health Potion");
+
+    // List the items in the inventory again
+    inventory.list_items();
+}
