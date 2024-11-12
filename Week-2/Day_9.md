@@ -135,7 +135,4 @@ Users can select an option by entering its corresponding number and follow the p
 
 If you would like to contribute to this project or suggest improvements, feel free to submit a pull request or open an issue for discussion.
 
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 ```
