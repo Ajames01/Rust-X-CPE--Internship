@@ -1,3 +1,4 @@
+```rust
 use std::io::{self, Write}; // importing the io module and the Write trait
 // by using the self you can access items in the io module 
 // writes - Its a trait that defines methods for bytes to a destination,
