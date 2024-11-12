@@ -1,98 +1,141 @@
  # Inventory Management System
 An inventory management system (IMS) is a technology solution that helps businesses track and manage their inventory levels, orders, sales, and deliveries. It ensures efficient handling of stock throughout its lifecycle, from procurement to sale.
-In Rust we make a ibnentory management system with the following steps below:
 
-### 1. Defining the ItemType Enum
+The Inventory Management System is a command-line application built with Rust that allows users to manage an inventory of items. Users can add new items, list existing items, and categorize them into predefined categories such as Electronics, Groceries, and Clothing. This application serves as a practical example of using Rust for basic data management tasks.
+
+# Example of an inventory management system in rust
+
+## Features of this Inventory system
+
+- **Add Items**: Users can input details for new items, including name, category, and quantity.
+- **List Items**: Users can view all items currently stored in the inventory.
+- **Categorization**: Items can be categorized into three types: Electronics, Groceries, and Clothing.
+
+
+
+## Code Explanation
+
+The following sections break down the key components of the code and the steps taken to implement this inventory management system.
+
+### 1. Importing Necessary Modules
+
 ```rust
-enum ItemType {
-    Potion,
-    Sword,
-    Shield,
-    Food,
+use std::io::{self, Write}; 
+```
+We import the `io` module from the standard library to handle input and output operations. The `Write` trait allows us to write data to standard output.
+
+### 2. Defining Categories with an Enum
+
+```rust
+#[derive(Debug)]
+enum Category {
+    Electronics,
+    Groceries,
+    Clothing,
 }
 ```
-This section defines an `ItemType` enum that lists the types of items our inventory can hold. Enums are useful for representing a fixed set of related values. In this case, `Potion`, `Sword`, `Shield`, and `Food` are different item types.
+We define an enum `Category` that represents the different categories of items in our inventory. The `Debug` trait allows us to print instances of this enum for debugging purposes.
 
-### 2. Defining the Item Struct
+### 3. Creating an Item Struct
+
 ```rust
+#[derive(Debug)]
 struct Item {
     name: String,
-    item_type: ItemType,
+    category: Category,
     quantity: u32,
 }
 ```
-The `Item` struct represents an individual item in the inventory. It includes three fields:
-- `name`: A `String` representing the item's name.
-- `item_type`: An `ItemType` enum indicating the type of the item.
-- `quantity`: A `u32` to denote how many of that item are present.
+The `Item` struct represents an individual item with three fields: `name`, `category`, and `quantity`. We derive `Debug` here as well for easy printing.
 
-### 3. Defining the Inventory Struct
+### 4. Defining the Inventory Struct
+
 ```rust
 struct Inventory {
-    items: Vec<Item>,
+    items: Vec<Item>, 
 }
 ```
-The `Inventory` struct holds a vector of `Item` objects. Vectors (`Vec<T>`) are used because they can grow and shrink dynamically, making them ideal for a collection of items.
+The `Inventory` struct contains a vector of `Item`s, allowing us to store multiple items in our inventory.
 
-### 4. Implementing Inventory Methods
-The `Inventory` struct has methods to add, remove, and list items in the inventory.
+### 5. Implementing Methods for Inventory Management
+
 ```rust
 impl Inventory {
-    // Add a new item to the inventory
     fn add_item(&mut self, item: Item) {
         self.items.push(item);
     }
 
-    // Remove an item from the inventory by name
-    fn remove_item(&mut self, item_name: &str) {
-        self.items.retain(|item| item.name != item_name);
-    }
-
-    // List all items in the inventory
     fn list_items(&self) {
         for item in &self.items {
-            println!("{}: {:?}", item.name, item.item_type);
+            println!("{:?}: {:?}", item.name, item);
         }
     }
 }
 ```
-- **add_item**: Takes a mutable reference to the inventory (`&mut self`) and an `Item`. It adds the item to the `items` vector.
-- **remove_item**: Takes a mutable reference to the inventory and the name of the item to be removed. It uses `retain` to keep only those items whose names do not match the provided `item_name`.
-- **list_items**: Takes an immutable reference to the inventory (`&self`) and prints out each item’s name and type.
+We implement methods for adding items to the inventory and listing all items currently stored. The `add_item` method pushes a new item onto the vector, while `list_items` iterates over each item and prints its name and details.
 
-### 5. Creating and Using the Inventory in main
+### 6. Main Function Logic
+
 ```rust
 fn main() {
-    // Create an inventory
     let mut inventory = Inventory { items: Vec::new() };
 
-    // Add some items to the inventory
-    inventory.add_item(Item {
-        name: String::from("Health Potion"),
-        item_type: ItemType::Potion,
-        quantity: 5,
-    });
+    loop {
+        println!("Choose an option:");
+        println!("1. Add item");
+        println!("2. List items");
+        println!("3. Exit");
 
-    inventory.add_item(Item {
-        name: String::from("Iron Sword"),
-        item_type: ItemType::Sword,
-        quantity: 1,
-    });
+        let mut choice = String::new();
+        io::stdin().read_line(&mut choice).expect("Failed to read input");
 
-    // List the items in the inventory
-    inventory.list_items();
-
-    // Remove an item from the inventory
-    inventory.remove_item("Health Potion");
-
-    // List the items in the inventory again
-    inventory.list_items();
+        match choice.trim() {
+            "1" => {
+                let item = get_item_from_user();
+                inventory.add_item(item);
+            }
+            "2" => {
+                inventory.list_items();
+            }
+            "3" => {
+                break;
+            }
+            _ => {
+                println!("Invalid option. Please try again.");
+            }
+        }
+    }
 }
 ```
-- We create an empty `Inventory` object with an empty vector.
-- We then add two items (`Health Potion` and `Iron Sword`) to the inventory using the `add_item` method.
-- We list all items in the inventory.
-- We remove the `Health Potion` from the inventory.
-- Finally, we list the items again to show the updated inventory after removal.
+In the `main` function, we initialize an empty inventory and enter a loop that presents users with options to add items, list items, or exit the application. User input is handled using standard input functions.
 
-This simple workflow demonstrates how to manage an inventory system using enums and structs in Rust. If you have any further questions or need additional functionality, feel free to ask!
+### 7. Collecting User Input for New Items
+
+```rust
+fn get_item_from_user() -> Item {
+    // Code for collecting item details from user...
+}
+```
+This function prompts users for item details (name, category, quantity) and constructs an `Item` instance based on their input.
+
+## Example Interaction
+
+When you run the application, it will display a menu like this:
+
+```
+Choose an option:
+1. Add item
+2. List items
+3. Exit
+```
+
+Users can select an option by entering its corresponding number and follow the prompts to manage their inventory effectively.
+
+## Contributing
+
+If you would like to contribute to this project or suggest improvements, feel free to submit a pull request or open an issue for discussion.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+```
