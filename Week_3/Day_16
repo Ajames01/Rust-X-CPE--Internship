@@ -1,5 +1,5 @@
 
-```rust
+```
 use std::collections::HashMap; // Import the HashMap struct
 
 fn main() {
@@ -32,11 +32,3 @@ fn main() {
     println!("Did you study CSS? {}", hashmap.contains_key("CSS"));
 }
 ```
-
-
-### Key Points:
-- The code creates a `HashMap` to store subjects and scores.
-- It demonstrates inserting, retrieving, removing, and iterating through key-value pairs.
-- The code also checks if a specific key exists in the `HashMap`.
-
-Feel free to reach out if you have any questions or need further assistance!
