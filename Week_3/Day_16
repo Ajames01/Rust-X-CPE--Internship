@@ -1,5 +1,5 @@
 
-```markdown
+
 # HashMap Example in Rust
 
 This repository contains an example of using `HashMap` in Rust. A `HashMap` is a collection that stores data in key-value pairs, allowing for efficient data retrieval and manipulation.
