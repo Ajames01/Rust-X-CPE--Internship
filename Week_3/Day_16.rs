@@ -9,7 +9,7 @@ fn main() {
     hashmap.insert("python", 95);
     hashmap.insert("C/C++", 90);
 
-    // find the length of HashMap
+    // find the length of HashMap 
     println!("The length of the HashMap is {}", hashmap.len());
 
     // Get a single value of a HashMap
