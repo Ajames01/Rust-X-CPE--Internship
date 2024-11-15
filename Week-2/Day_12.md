@@ -1,8 +1,4 @@
-
-
 # Rust Error Handling: `Result` and `Option`
-
-
 
 ## Introduction
 
@@ -111,16 +107,85 @@ match result {
 
 Combinators like `map`, `and_then`, `unwrap_or`, and `unwrap_or_else` provide functional ways to work with `Option` and `Result`.
 
+#### `map`
+The `map` combinator applies a function to the value inside an `Option` or `Result`, if it exists, and returns a new `Option` or `Result`.
+
 ```rust
-let user_name = find_user_name(1).unwrap_or("Unknown".to_string());
-let result = divide(4.0, 2.0).unwrap_or_else(|_| 0.0);
+let some_number = Some(5);
+let incremented = some_number.map(|x| x + 1);
+println!("{:?}", incremented); // Output: Some(6)
+
+let ok_value: Result<i32, &str> = Ok(10);
+let incremented = ok_value.map(|x| x + 1);
+println!("{:?}", incremented); // Output: Ok(11)
 ```
 
-## Conclusion
+#### `and_then`
+The `and_then` combinator, also known as `flatmap` in other languages, applies a function that returns an `Option` or `Result`, and then flattens the result.
+
+```rust
+let some_number = Some(5);
+let result = some_number.and_then(|x| if x % 2 == 0 { Some(x / 2) } else { None });
+println!("{:?}", result); // Output: None
+
+let ok_value: Result<i32, &str> = Ok(10);
+let result = ok_value.and_then(|x| if x % 2 == 0 { Ok(x / 2) } else { Err("Not even") });
+println!("{:?}", result); // Output: Ok(5)
+```
+
+#### `unwrap_or`
+The `unwrap_or` combinator returns the contained value or a default value if the `Option` is `None` or the `Result` is `Err`.
+
+```rust
+let some_number = None;
+let value = some_number.unwrap_or(10);
+println!("{}", value); // Output: 10
+
+let err_value: Result<i32, &str> = Err("Oops");
+let value = err_value.unwrap_or(10);
+println!("{}", value); // Output: 10
+```
+
+#### `unwrap_or_else`
+The `unwrap_or_else` combinator is similar to `unwrap_or`, but it takes a closure that produces a default value.
+
+```rust
+let some_number = None;
+let value = some_number.unwrap_or_else(|| 10);
+println!("{}", value); // Output: 10
+
+let err_value: Result<i32, &str> = Err("Oops");
+let value = err_value.unwrap_or_else(|_| 10);
+println!("{}", value); // Output: 10
+```
+
+#### `or`
+The `or` combinator returns the first `Some` or `Ok` value it encounters, or the second one if the first is `None` or `Err`.
+
+```rust
+let first = None;
+let second = Some(2);
+let result = first.or(second);
+println!("{:?}", result); // Output: Some(2)
+
+let first: Result<i32, &str> = Err("First error");
+let second: Result<i32, &str> = Ok(2);
+let result = first.or(second);
+println!("{:?}", result); // Output: Ok(2)
+```
+
+#### `or_else`
+The `or_else` combinator is similar to `or`, but it takes a closure that produces an alternative `Option` or `Result`.
+
+```rust
+let first = None;
+let result = first.or_else(|| Some(2));
+println!("{:?}", result); // Output: Some(2)
+
+let first: Result<i32, &str> = Err("First error");
+let result = first.or_else(|_| Ok(2));
+println!("{:?}", result); // Output: Ok(2)
+```
+
 
 Rust's `Option` and `Result` enums provide robust and expressive error handling mechanisms. They encourage developers to explicitly handle potential errors, leading to safer and more reliable code.
-
-Feel free to explore more about error handling in Rust to write resilient and bug-free applications!
-
----
-
