@@ -1,82 +1,69 @@
+In Rust, **HashMap** and **String** are two widely used data structures, each serving a specific purpose:
+
+## **HashMap**
 
 
-# HashMap Example in Rust
+A HashMap in Rust is a key-value store, similar to dictionaries in Python or hash tables in other languages.
+It is part of Rust’s standard library, specifically the `std::collections` module, and allows you to store and quickly retrieve values based on unique keys.
 
-This repository contains an example of using `HashMap` in Rust. A `HashMap` is a collection that stores data in key-value pairs, allowing for efficient data retrieval and manipulation.
 
-## Code Explanation
+**Key Features of HashMap**
+- Keys and Values: Each key in a `HashMap<K, V>` is associated with a value, where `K` is the type of keys and `V` is the type of values.
+- **Creating a HashMap**
+```
+use std::collections::HashMap;
 
-The following Rust code demonstrates how to create, manipulate, and interact with a `HashMap`. 
-
-### Code
-
-```rust
-use std::collections::HashMap; // Import the HashMap struct
-
-fn main() {
-    let mut hashmap = HashMap::new(); // Create a new HashMap 
-
-    // Insert key-value pairs into the HashMap
-    hashmap.insert("Arduino", 98);
-    hashmap.insert("Matlab", 80);
-    hashmap.insert("Python", 95);
-    hashmap.insert("C/C++", 90);
-
-    // Find the length of the HashMap
-    println!("The length of the HashMap is {}", hashmap.len());
-
-    // Get a single value from the HashMap
-    match hashmap.get("C/C++") {
-        Some(value) => println!("You got {} for C/C++", value),
-        None => println!("You didn't study C/C++"),
-    }
-
-    // Remove a value from the HashMap
-    hashmap.remove("Matlab");
-
-    // Loop through the HashMap
-    for (key, value) in hashmap.iter() {
-        println!("For {} you got {}%", key, value);
-    }
-
-    // Check for a value in the HashMap
-    println!("Did you study CSS? {}", hashmap.contains_key("CSS"));
+let mut scores = HashMap::new();
+scores.insert("Blue", 10);
+scores.insert("Red", 20);
+```
+- **Accessing Elements:**
+  - You can access values by passing a reference to the key to the `get` method, which returns an `Option<&V>.`
+```
+let team_name = "Blue";
+match scores.get(team_name) {
+    Some(&score) => println!("Score: {}", score),
+    None => println!("No score found for team"),
 }
 ```
+- **Updating Elements:**
+    - If you insert a key that already exists, the value is updated.
+```
+scores.insert("Blue", 15); // Changes the score for "Blue" to 15
+```
+- **Iterating:**
+  - You can iterate over key-value pairs in a `HashMap`.
+```
+for (key, value) in &scores {
+    println!("{}: {}", key, value);
 
-### Features
+}
+```
+- **Removing Elements:**
+  - Use `remove` to delete an entry by its key.
+```
+scores.remove("Blue");
+```
+## String
+In Rust, **String** is a growable, mutable, UTF-8 encoded string type. It is used to represent and manipulate text, and it is different from `&str`, which is a string slice (an immutable view of a string).
 
-- **Insertion**: Add key-value pairs to the `HashMap`.
-- **Retrieval**: Access values using their corresponding keys.
-- **Removal**: Delete entries from the `HashMap`.
-- **Iteration**: Loop through all key-value pairs.
-- **Existence Check**: Verify if a specific key exists in the `HashMap`.
-
-## How to Run
-
-1. Ensure you have [Rust](https://www.rust-lang.org/tools/install) installed on your machine.
-2. Clone this repository:
-   ```bash
-   git clone https://github.com/yourusername/hashmap-example.git
-   ```
-3. Navigate to the project directory:
-   ```bash
-   cd hashmap-example
-   ```
-4. Compile and run the code:
-   ```bash
-   cargo run
-   ```
-
-## Conclusion
-
-This example illustrates basic operations with `HashMaps` in Rust. Feel free to modify and expand upon this code to explore more features and functionalities!
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+**Key Features of String**
+- **Creating a String:**
+  - You can create an empty String or initialize it with a literal.
+```
+let mut greeting = String::new(); // empty string
+let hello = String::from("Hello, world!"); // initialized string
+```
+- **Appending to a String:**
+  - Use the push method to add a single character, or push_str to append a string slice.
+```
+let mut s = String::from("Hello");
+s.push(',');
+s.push_str(" world!");
 ```
 
-### Instructions:
-- Replace `yourusername` with your actual GitHub username in the clone URL.
-- You can add any additional sections or information as needed, such as contributing guidelines or acknowledgments.
+**Common Methods:**
+- `len():` Returns the length of the string in bytes.
+- `is_empty():` Checks if the string is empty.
+- `contains():` Checks if the string contains a substring.
+- `replace():` Replaces a part of the string with another string.
