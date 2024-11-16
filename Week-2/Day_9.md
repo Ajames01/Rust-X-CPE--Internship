@@ -1,31 +1,21 @@
- # Inventory Management System
-An inventory management system (IMS) is a technology solution that helps businesses track and manage their inventory levels, orders, sales, and deliveries. It ensures efficient handling of stock throughout its lifecycle, from procurement to sale.
+# Inventory Management System in Rust
 
-The Inventory Management System is a command-line application built with Rust that allows users to manage an inventory of items. Users can add new items, list existing items, and categorize them into predefined categories such as Electronics, Groceries, and Clothing. This application serves as a practical example of using Rust for basic data management tasks.
+This is a simple inventory management system written in Rust. It allows you to manage items in an inventory, search for items by ID or category, and display the entire inventory in a structured format.
 
-# Example of an inventory management system in rust
+---
 
-## Features of this Inventory system
+## Features
+- Add items to the inventory.
+- Display all items in the inventory.
+- Search for an item by its unique ID.
+- Filter items by their category.
 
-- **Add Items**: Users can input details for new items, including name, category, and quantity.
-- **List Items**: Users can view all items currently stored in the inventory.
-- **Categorization**: Items can be categorized into three types: Electronics, Groceries, and Clothing.
+---
 
+## Code Overview
 
-
-## Code Explanation
-
-The following sections break down the key components of the code and the steps taken to implement this inventory management system.
-
-### 1. Importing Necessary Modules
-
-```rust
-use std::io::{self, Write}; 
-```
-We import the `io` module from the standard library to handle input and output operations. The `Write` trait allows us to write data to standard output.
-
-### 2. Defining Categories with an Enum
-
+### `Category` Enum
+Represents the categories an item can belong to:
 ```rust
 #[derive(Debug)]
 enum Category {
@@ -34,105 +24,161 @@ enum Category {
     Clothing,
 }
 ```
-We define an enum `Category` that represents the different categories of items in our inventory. The `Debug` trait allows us to print instances of this enum for debugging purposes.
 
-### 3. Creating an Item Struct
-
+### `Item` Struct
+Represents an individual item in the inventory:
 ```rust
-#[derive(Debug)]
 struct Item {
+    id: i32,
     name: String,
     category: Category,
-    quantity: u32,
+    quantity: i32,
+    price: i32,
 }
 ```
-The `Item` struct represents an individual item with three fields: `name`, `category`, and `quantity`. We derive `Debug` here as well for easy printing.
 
-### 4. Defining the Inventory Struct
-
+### `Inventory` Struct
+Holds all items and provides methods for managing the inventory:
 ```rust
 struct Inventory {
-    items: Vec<Item>, 
+    items: Vec<Item>,
 }
 ```
-The `Inventory` struct contains a vector of `Item`s, allowing us to store multiple items in our inventory.
 
-### 5. Implementing Methods for Inventory Management
-
+### Methods in `Inventory`
+#### 1. **`new`**
+Creates a new, empty inventory:
 ```rust
-impl Inventory {
-    fn add_item(&mut self, item: Item) {
-        self.items.push(item);
-    }
+fn new() -> Inventory {
+    Inventory { items: Vec::new() }
+}
+```
 
-    fn list_items(&self) {
-        for item in &self.items {
-            println!("{:?}: {:?}", item.name, item);
-        }
+#### 2. **`add_item`**
+Adds an item to the inventory:
+```rust
+fn add_item(&mut self, item: Item) {
+    self.items.push(item);
+}
+```
+
+#### 3. **`display_inventory`**
+Displays all items in the inventory:
+```rust
+fn display_inventory(&self) {
+    println!("Inventory:");
+    for item in &self.items {
+        println!(
+            "ID: {}, Name: {}, Category: {:?}, Quantity: {}, Price: ${}",
+            item.id, item.name, item.category, item.quantity, item.price
+        );
     }
 }
 ```
-We implement methods for adding items to the inventory and listing all items currently stored. The `add_item` method pushes a new item onto the vector, while `list_items` iterates over each item and prints its name and details.
 
-### 6. Main Function Logic
+#### 4. **`find_item_by_id`**
+Finds an item by its ID:
+```rust
+fn find_item_by_id(&self, id: i32) -> Option<&Item> {
+    self.items.iter().find(|&item| item.id == id)
+}
+```
 
+#### 5. **`find_items_by_category`**
+Finds all items belonging to a specific category:
+```rust
+fn find_items_by_category(&self, category: Category) -> Vec<&Item> {
+    self.items
+        .iter()
+        .filter(|&item| item.category == category)
+        .collect()
+}
+```
+
+---
+
+## Example Usage
 ```rust
 fn main() {
-    let mut inventory = Inventory { items: Vec::new() };
+    let mut inv = Inventory::new();
 
-    loop {
-        println!("Choose an option:");
-        println!("1. Add item");
-        println!("2. List items");
-        println!("3. Exit");
+    let item1 = Item {
+        id: 1,
+        name: "Phone".to_string(),
+        category: Category::Electronics,
+        quantity: 5,
+        price: 1000,
+    };
 
-        let mut choice = String::new();
-        io::stdin().read_line(&mut choice).expect("Failed to read input");
+    let item2 = Item {
+        id: 2,
+        name: "Shirt".to_string(),
+        category: Category::Clothing,
+        quantity: 3,
+        price: 20,
+    };
 
-        match choice.trim() {
-            "1" => {
-                let item = get_item_from_user();
-                inventory.add_item(item);
-            }
-            "2" => {
-                inventory.list_items();
-            }
-            "3" => {
-                break;
-            }
-            _ => {
-                println!("Invalid option. Please try again.");
-            }
-        }
+    let item3 = Item {
+        id: 3,
+        name: "Bread".to_string(),
+        category: Category::Groceries,
+        quantity: 10,
+        price: 3,
+    };
+
+    // Add items to inventory
+    inv.add_item(item1);
+    inv.add_item(item2);
+    inv.add_item(item3);
+
+    // Display all items in the inventory
+    inv.display_inventory();
+
+    // Find an item by ID
+    if let Some(item) = inv.find_item_by_id(2) {
+        println!(
+            "\nFound item with ID 2: Name: {}, Category: {:?}, Quantity: {}, Price: ${}",
+            item.name, item.category, item.quantity, item.price
+        );
+    } else {
+        println!("\nItem with ID 2 not found.");
+    }
+
+    // Find items by category
+    let electronics = inv.find_items_by_category(Category::Electronics);
+    println!("\nElectronics in inventory:");
+    for item in electronics {
+        println!(
+            "ID: {}, Name: {}, Quantity: {}, Price: ${}",
+            item.id, item.name, item.quantity, item.price
+        );
     }
 }
 ```
-In the `main` function, we initialize an empty inventory and enter a loop that presents users with options to add items, list items, or exit the application. User input is handled using standard input functions.
 
-### 7. Collecting User Input for New Items
+---
 
-```rust
-fn get_item_from_user() -> Item {
-    // Code for collecting item details from user...
-}
+## Sample Output
 ```
-This function prompts users for item details (name, category, quantity) and constructs an `Item` instance based on their input.
+Inventory:
+ID: 1, Name: Phone, Category: Electronics, Quantity: 5, Price: $1000
+ID: 2, Name: Shirt, Category: Clothing, Quantity: 3, Price: $20
+ID: 3, Name: Bread, Category: Groceries, Quantity: 10, Price: $3
 
-## Example Interaction
+Found item with ID 2: Name: Shirt, Category: Clothing, Quantity: 3, Price: $20
 
-When you run the application, it will display a menu like this:
-
-```
-Choose an option:
-1. Add item
-2. List items
-3. Exit
+Electronics in inventory:
+ID: 1, Name: Phone, Quantity: 5, Price: $1000
 ```
 
-Users can select an option by entering its corresponding number and follow the prompts to manage their inventory effectively.
 
-## Contributing
 
-If you would like to contribute to this project or suggest improvements, feel free to submit a pull request or open an issue for discussion.
 
-```
+
+## Possible Extensions
+- Add functionality to update item quantities.
+- Implement item removal from the inventory.
+- Provide sorting options (e.g., by price or name).
+- Persist inventory data using file storage.
+
+---
