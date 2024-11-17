@@ -1,4 +1,4 @@
-```
+
 // Import the HashMap package from the standard collections library
 use std::collections::HashMap;
 
@@ -70,4 +70,4 @@ fn main() {
     // Remove a specific contact from the contact book
     contact_book.remove_contact("James Anaga");
 }
-```
+
