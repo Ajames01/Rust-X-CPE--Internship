@@ -1,19 +1,6 @@
 
 
-```markdown
 # Rust Programming: Conditional Statements and Loops
-
-Rust programming.
-
-## Table of Contents
-- [Conditional Statements](#conditional-statements)
-  - [If Statement](#if-statement)
-  - [Else If Statement](#else-if-statement)
-  - [Else Statement](#else-statement)
-- [Loops](#loops)
-  - [Loop](#loop)
-  - [While Loop](#while-loop)
-  - [For Loop](#for-loop)
 
 ## Conditional Statements
 
