@@ -1,3 +1,5 @@
+# Error Handling
+
 To make the inventory system more robust, we can add error handling using Rust's built-in features like `Result`, `Option`, and custom error types. This will allow us to handle invalid operations gracefully, such as attempting to retrieve or remove an item that doesn't exist.
 
 ---
