@@ -12,3 +12,4 @@
 - 3:00pm - 5:00pm: Rust programming language workshop
 - 6:00pm - 8:00pm: Rust programming language workshop
 - 9:00pm - 11:00pm: Rust programming language workshop
+fdghfrfefes
