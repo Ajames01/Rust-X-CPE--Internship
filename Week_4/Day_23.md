@@ -1,0 +1,14 @@
+**Thursdays**
+- 10:00am - 12:00pm: Lecture on Rust programming language
+- 1:00pm - 3:00pm: Rust programming language workshop
+- 4:00pm - 6:00pm: Rust programming language workshop
+- 7:00pm - 9:00pm: Rust programming language workshop
+- 10:00pm - 12:00am: Lunch
+- 12:00am - 2:00am: Rust programming language workshop
+- 3:00am - 5:00am: Rust programming language workshop
+- 6:00am - 8:00am: Rust programming language workshop
+- 9:00am - 11:00am: Rust programming language workshops
+- 12:00pm - 2:00pm: Rust programming language workshop
+- 3:00pm - 5:00pm: Rust programming language workshop
+- 6:00pm - 8:00pm: Rust programming language workshop
+- 9:00pm - 11:00pm: Rust programming language workshop
