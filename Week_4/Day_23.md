@@ -1,15 +1,34 @@
-**Thursdays**
-- 10:00am - 12:00pm: Lecture on Rust programming language
-- 1:00pm - 3:00pm: Rust programming language workshop
-- 4:00pm - 6:00pm: Rust programming language workshop
-- 7:00pm - 9:00pm: Rust programming language workshop
-- 10:00pm - 12:00am: Lunch
-- 12:00am - 2:00am: Rust programming language workshop
-- 3:00am - 5:00am: Rust programming language workshop
-- 6:00am - 8:00am: Rust programming language workshop
-- 9:00am - 11:00am: Rust programming language workshops
-- 12:00pm - 2:00pm: Rust programming language workshop
-- 3:00pm - 5:00pm: Rust programming language workshop
-- 6:00pm - 8:00pm: Rust programming language workshop
-- 9:00pm - 11:00pm: Rust programming language workshop
-fdghfrfefes
+# 🕒 Colorful Countdown Timer in Rust
+
+## Overview
+
+This is a simple yet engaging countdown timer implemented in Rust, featuring dynamic color-coded time display and robust user input handling. 
+The timer provides a visually appealing way to track time, with colors that change based on the remaining duration.
+
+## Features
+
+- 🌈 Color-coded countdown:
+  - 🟢 Green when plenty of time remains
+  - 🟡 Yellow as time gets shorter
+  - 🔴 Red when time is almost up
+- ✨ Robust user input handling
+- 🖥️ Simple terminal-based interface
+- 🦀 Written in Rust
+
+## How It Works
+
+The countdown timer allows users to:
+1. Input minutes and seconds
+2. Watch a colorful, second-by-second countdown
+3. Receive a vibrant "Time's up!" message when complete
+
+### Color Progression Example
+- Starting at 100 seconds: 🟢 Bright Green
+- Halfway through: 🟡 Yellow
+- Final moments: 🔴 Intense Red
+
+## Dependencies
+
+- `std::thread` for sleep functionality
+- `std::time::Duration` for time management
+- `colored` crate for terminal coloration
