@@ -34,4 +34,4 @@ A high-performance, concurrent web scraper built with Rust, featuring:
 ## Performance Considerations
 - Non-blocking async design
 - Controlled concurrent requests
-- Minimal overhead extraction
+- Minimal overhead extractiong
