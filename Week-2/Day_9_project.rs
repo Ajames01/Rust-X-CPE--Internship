@@ -1,5 +1,3 @@
-
-```rust
 fn main() {
     let mut inv = Inventory::new();
 
@@ -55,5 +53,4 @@ fn main() {
         );
     }
 }
-```
 
